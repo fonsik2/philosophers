@@ -1,34 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smdyan <smdyan@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 10:16:21 by smdyan            #+#    #+#             */
+/*   Updated: 2022/05/05 23:54:09 by smdyan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
 #include "philo.h"
 
-t_par	pars_arg(int argc, char **argv)
+void *live_func(void *arg)
 {
-	t_par par;
-	int i;
+	t_par local_args;
 
-	i = 0;
-	if (argc == 5 || argc == 6)
-	{
-		par.num_phs = atoi(*(argv + ++i));
-		par.time_die = atoi(*(argv + ++i));
-		par.time_eat = atoi(*(argv + ++i));
-		par.time_slp = atoi(*(argv + ++i));
-		if (argc == 6)
-			par.num_eat = atoi(*(argv + ++i));
-	}
-	else
-	{
-		par.num_phs = 0;
-		printf("Error: %s\n", "required params NUM_PHS TIME_DIE TIME_EAT TIME_SLP [NUM_EAT]");
-	}
-	return(par);
+	local_args = * (t_par*) arg;
+	usleep((useconds_t)local_args.time_slp);
+	stamp_time();
+	printf("philo %d is alive\n", local_args.num_phs);
+	return NULL;
 }
 
 int main(int argc, char **argv)
 {
-	t_par	arg;
-	arg = pars_arg(argc, argv);
-	if(arg.num_phs == 0)
-		return(1);
-	printf("time_die=%d\n", arg.time_die);
+	t_par	args;
+	args = pars_arg(argc, argv);
+	pthread_t live_pthread;
+//	char	*frk_state;
+	int		result;
+	int 	i;
+
+	stamp_time();
+//	frk_state = init_frk(args);
+	i = 0;
+	while (i < args.num_phs)
+	{
+		result = pthread_create(&live_pthread, NULL, live_func, &args);
+		if (result != 0)
+		{
+			perror("Creating first pthread\n");
+			return EXIT_FAILURE;
+		}
+		i++;
+	}
+	result = pthread_join(live_pthread, NULL);
+	if (result != 0)
+	{
+		perror("Joining first pthread\n");
+		return EXIT_FAILURE;
+	}
+	ft_putstr("Done\n");
+	printf("time_die=%d\n", args.time_die);
 	return (0);
 }
