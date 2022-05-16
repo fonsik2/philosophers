@@ -13,10 +13,10 @@
 
 void reset_arg(t_par *par)
 {
-	par->num_phs = 0;
-	par->time_die = 0;
-	par->time_eat = 0;
-	par->time_slp = 0;
+	par->n_phs = 0;
+	par->t_die = 0;
+	par->t_eat = 0;
+	par->t_slp = 0;
 }
 
 t_par	pars_arg(int argc, char **argv)
@@ -28,34 +28,16 @@ t_par	pars_arg(int argc, char **argv)
 	i = 0;
 	if (argc == 5 || argc == 6)
 	{
-		par.num_phs = ft_atoi(*(argv + ++i));
-		par.time_die = ft_atoi(*(argv + ++i));
-		par.time_eat = ft_atoi(*(argv + ++i));
-		par.time_slp = ft_atoi(*(argv + ++i));
+		par.n_phs = ft_atoi(*(argv + ++i));
+		par.t_die = ft_atoi(*(argv + ++i));
+		par.t_eat = ft_atoi(*(argv + ++i));
+		par.t_slp = ft_atoi(*(argv + ++i));
+		par.phs_id = 0;
 		if (argc == 6)
-			par.num_eat = ft_atoi(*(argv + ++i));
+			par.n_eat = ft_atoi(*(argv + ++i));
 	}
 	else
-		ft_putstr("Error: Bad parameter\n");
+		ft_putstr("Error: n_phs t_die t_eat t_slp n_eat \n");
 	return(par);
 }
 
-/*char *init_frk(t_par args)
-{
-	char	*array;
-	int		i;
-
-	i = args.num_phs;
-	array = (char *)malloc(i * sizroff(char));
-	if (!array)
-	{
-		ft_putstr("Error: memory fault\n");
-		exit(0);
-	}
-	while(i)
-	{
-		i--;
-		array[i] = 0;
-	}
-	return (array);
-}*/

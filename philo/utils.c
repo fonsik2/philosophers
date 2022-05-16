@@ -48,9 +48,13 @@ int		ft_atoi(const char *str)
 	return (int)(res * sign);
 }
 
-void stamp_time(void)
+long long int cur_time(void)
 {
+	long long int time;
 	struct timeval	current_time;
+
 	gettimeofday(&current_time, NULL);
-	printf("%ld %d born\n", current_time.tv_sec, current_time.tv_usec/1000);
+	printf("%ld %d internal stamp\n", current_time.tv_sec, current_time.tv_usec/1000);
+	time = current_time.tv_sec * 1000 + current_time.tv_usec/1000;
+	return (time);
 }

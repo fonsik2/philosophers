@@ -6,7 +6,7 @@
 #    By: smdyan <smdyan@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/02 10:13:12 by smdyan            #+#    #+#              #
-#    Updated: 2022/05/03 11:08:00 by smdyan           ###   ########.fr        #
+#    Updated: 2022/05/11 14:53:38 by smdyan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = philo
 
 SRC = main.c\
 	  init.c\
-	  utils.c
+	  utils.c\
+	  actions.c
 
 HEADER = ./
 
@@ -32,7 +33,7 @@ all: $(NAME)
 include $(wildcard *.d)
 
 $(NAME): $(OBJ) Makefile
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ) -o $(NAME) -pthread
 
 clean:
 	rm -f $(OBJ)

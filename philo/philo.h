@@ -21,17 +21,18 @@
 
 typedef struct params
 {
-	int	num_phs;
-	int	time_die;
-	int	time_eat;
-	int	time_slp;
-	int	num_eat;
+	int	n_phs;
+	int	t_die;
+	int	t_eat;
+	int	t_slp;
+	int	n_eat;
+	int phs_id;
 }				t_par;
 
 t_par	pars_arg(int argc, char **argv);
 void	ft_putstr(char *str);
 int		ft_atoi(const char *str);
-char	init_frk(t_par args);
-void	stamp_time(void);
+long long int	cur_time(void);
+void	*f_action(void *arg);
 
 #endif
