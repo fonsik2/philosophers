@@ -1,0 +1,10 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/lily/philosophers/philo",
+            "binaryPath": "/Users/lily/philosophers/philo/philo",
+            "binaryArgs": []
+        }
+    ]
+}

@@ -21,6 +21,15 @@ void	ft_putstr(char *str)
 	}
 }
 
+void	ft_swap(int *a, int *b)
+{
+	int c;
+
+	c = *b;
+	*b = *a;
+	*a = c;
+}
+
 int		ft_atoi(const char *str)
 {
 	int		sign;
@@ -48,13 +57,12 @@ int		ft_atoi(const char *str)
 	return (int)(res * sign);
 }
 
-long long int cur_time(void)
+long long cur_time(void)
 {
-	long long int time;
+	long long time;
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	printf("%ld %d internal stamp\n", current_time.tv_sec, current_time.tv_usec/1000);
 	time = current_time.tv_sec * 1000 + current_time.tv_usec/1000;
 	return (time);
 }

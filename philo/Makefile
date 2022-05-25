@@ -13,9 +13,12 @@
 NAME = philo
 
 SRC = main.c\
-	  init.c\
+	  init_arg.c\
+	  init_arr.c\
+	  init_pth.c\
 	  utils.c\
-	  actions.c
+	  action.c\
+	  killer.c
 
 HEADER = ./
 
@@ -23,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 

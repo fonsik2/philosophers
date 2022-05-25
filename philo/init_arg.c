@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_arg.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smdyan <smdyan@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,33 +11,62 @@
 /* ************************************************************************** */
 # include "philo.h"
 
-void reset_arg(t_par *par)
+void reset_arg(t_par *arg)
 {
-	par->n_phs = 0;
-	par->t_die = 0;
-	par->t_eat = 0;
-	par->t_slp = 0;
+	arg->n_phs = 0;
+	arg->t_die = 0;
+	arg->t_eat = 0;
+	arg->t_slp = 0;
+	arg->id = 0;
+	arg->n_eat = 0;
+	arg->alive = 1;
+	arg->ok = 1;
 }
 
 t_par	pars_arg(int argc, char **argv)
 {
-	t_par par;
+	t_par arg;
 	int i;
 
-	reset_arg(&par);
+	reset_arg(&arg);
 	i = 0;
 	if (argc == 5 || argc == 6)
 	{
-		par.n_phs = ft_atoi(*(argv + ++i));
-		par.t_die = ft_atoi(*(argv + ++i));
-		par.t_eat = ft_atoi(*(argv + ++i));
-		par.t_slp = ft_atoi(*(argv + ++i));
-		par.phs_id = 0;
+		arg.n_phs = ft_atoi(*(argv + ++i));
+		arg.t_die = ft_atoi(*(argv + ++i));
+		arg.t_eat = ft_atoi(*(argv + ++i));
+		arg.t_slp = ft_atoi(*(argv + ++i));
 		if (argc == 6)
-			par.n_eat = ft_atoi(*(argv + ++i));
+			arg.n_eat = ft_atoi(*(argv + ++i));
 	}
 	else
 		ft_putstr("Error: n_phs t_die t_eat t_slp n_eat \n");
-	return(par);
+	return(arg);
 }
 
+t_par *set_arg(int argc, char **argv)
+{
+	t_par	*arg_set;
+	t_par	arg;
+	int		inx;
+
+	inx = 0;
+	arg = pars_arg(argc, argv);
+	arg.fkl_ptr = frk_init(arg.n_phs);
+	arg.phs_ptr = phs_init(&arg);
+	arg_set = (t_par*)malloc(sizeof(t_par)*arg.n_phs);
+	if (arg_set == 0)
+	{
+		printf("Error: memory fault\n");
+		free(arg.phs_ptr);
+		free(arg.fkl_ptr);
+		exit (-1);
+	}
+	while(inx < arg.n_phs)
+	{
+		arg.id++;
+		*(arg_set + inx) =  arg;
+		inx++;
+	}
+	return(arg_set);
+}
