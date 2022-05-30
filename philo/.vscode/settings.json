@@ -6,5 +6,11 @@
             "binaryPath": "/Users/lily/philosophers/philo/philo",
             "binaryArgs": []
         }
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "__locale": "c",
+        "chrono": "c",
+        "locale": "c"
+    }
 }

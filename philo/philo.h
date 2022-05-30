@@ -23,28 +23,31 @@ typedef struct params
 {
 	int				n_phs;
 	int				t_die;
-	long long		tv_srt;
+	struct timeval	tv_eat;
+	struct timeval	tv_srt;
 	int				t_eat;
 	int				t_slp;
 	int				n_eat;
 	int				id;
 	int				alive;
-	int				ok;
-	pthread_mutex_t	*fkl_ptr;
-	pthread_t		*phs_ptr;
-	pthread_t		*tmr_ptr;
-	
+	int				*sim_on;
+	pthread_mutex_t	*fkl_set;
+	pthread_mutex_t	*p_lock;
+	pthread_mutex_t	*a_lock;
+	pthread_t		*phs_set;
+	pthread_t		*monitor_p;
 }				t_par;
 
-void			ft_putstr(char *str);
 int				ft_atoi(const char *str);
 void			ft_swap(int *a, int *b);
-long long		cur_time(void);
+long			t_interval(struct timeval tv1, struct timeval tv2);
+long			t_current(struct timeval tv_srt);
+void    		print_msg(const char *text, long t_v, int id, pthread_mutex_t *sout_lock);
 void			*f_killer(void *arg);
 void			*f_action(void *arg);
 t_par			*set_arg(int argc, char **argv);
-pthread_mutex_t *frk_init(int n_phs);
-pthread_t		*phs_init(t_par *arg);
+int				frk_init(t_par *arg);
+int				phs_init(t_par *arg);
 int				life_run(t_par *arg_set);
 int				life_dwn(t_par *arg_set);
 

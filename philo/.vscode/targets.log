@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Wed May 25 21:17:41 2022
+# Make data base, printed on Mon May 30 18:23:59 2022
 
 # Variables
 
@@ -19,7 +19,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # makefile (from `Makefile', line 25)
 OBJ = $(SRC:.c=.o)
 # makefile (from `Makefile', line 15)
-SRC = main.c init_arg.c init_arr.c init_pth.c utils.c action.c killer.c
+SRC = main.c init_arg.c init_arr.c init_sim.c utils.c action.c monitor.c
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -43,7 +43,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/kc/dd343rvn7t5c3rjvdmchl1sh0000gp/T/vscode-ipc-551b0072-40cb-474d-a680-65ec7afa9a33.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/kc/dd343rvn7t5c3rjvdmchl1sh0000gp/T/vscode-ipc-c5ad15bf-6000-4cc2-bb83-4e31e8643421.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -104,6 +104,7 @@ NAME = philo
 MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
 # default
 .VARIABLES := 
+ 
 # environment
 TMPDIR = /var/folders/kc/dd343rvn7t5c3rjvdmchl1sh0000gp/T/
 # automatic
@@ -159,9 +160,9 @@ VSCODE_PID = 52223
 
 # Directories
 
-# . (device 16777221, inode 35960808): 12 files, no impossibilities.
+# . (device 16777221, inode 35960808): 14 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -184,7 +185,7 @@ all: philo
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 
-philo: main.o init_arg.o init_arr.o init_pth.o utils.o action.o killer.o Makefile
+philo: main.o init_arg.o init_arr.o init_sim.o utils.o action.o monitor.o Makefile
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
@@ -203,11 +204,17 @@ philo: main.o init_arg.o init_arr.o init_pth.o utils.o action.o killer.o Makefil
 # Not a target:
 main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-24 15:13:53
+#  Last modified 2022-05-30 18:20:59
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+monitor.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .SUFFIXES:
@@ -218,17 +225,12 @@ main.c:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-25 21:17:36
+#  Last modified 2022-05-30 18:23:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-killer.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 # Not a target:
 action.o:
@@ -247,12 +249,6 @@ fclean: clean
 
 # Not a target:
 init_arg.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-init_pth.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -319,6 +315,12 @@ main.o: main.c
 	$(CC) $(FLAGS) -c $< -o $@ -I$(HEADER) -MD
 	
 
+# Not a target:
+init_sim.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # files hash-table stats:
 # Load=17/1024=2%, Rehash=0, Collisions=1/49=2%
 # VPATH Search Paths
@@ -332,6 +334,6 @@ main.o: main.c
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed May 25 21:17:41 2022
+# Finished Make data base on Mon May 30 18:23:59 2022
 
  

@@ -12,15 +12,6 @@
 
 #include "philo.h"
 
-void	ft_putstr(char *str)
-{
-	while (*str)
-	{
-		write(1, str, 1);
-		++str;
-	}
-}
-
 void	ft_swap(int *a, int *b)
 {
 	int c;
@@ -32,11 +23,9 @@ void	ft_swap(int *a, int *b)
 
 int		ft_atoi(const char *str)
 {
-	int		sign;
 	int		dig;
 	long	res;
 
-	sign = 1;
 	dig = 0;
 	res = 0;
 	while (*str == '\n' || *str == '\t' || *str == '\v'
@@ -48,21 +37,46 @@ int		ft_atoi(const char *str)
 	{
 		res = res * 10 + (*str - '0');
 		dig++;
-		if (dig > 10 || (res * sign) > INT_MAX || (res * sign) < INT_MIN)
-			ft_putstr("Error: Bad parameter");
+		if (dig > 10 || res > INT_MAX)
+		{
+			printf("Error: Bad parameter\n");
+			return (-1);
+		}
 		str++;
 	}
-	if (dig == 0 || res == 0)
-		ft_putstr("Error: Bad parameter");
-	return (int)(res * sign);
+	if (dig == 0)
+	{
+		printf("Error: Bad parameter\n");
+		return (-1);
+	}
+	return (int)(res);
 }
 
-long long cur_time(void)
+void    print_msg(const char *text, long t_v, int id, pthread_mutex_t *sout_lock)
 {
-	long long time;
-	struct timeval	current_time;
+    pthread_mutex_lock(sout_lock);
+    printf("%ld ID:%d %s\n", t_v, id, text);
+    pthread_mutex_unlock(sout_lock);
+}
 
-	gettimeofday(&current_time, NULL);
-	time = current_time.tv_sec * 1000 + current_time.tv_usec/1000;
-	return (time);
+long t_interval(struct timeval tv1, struct timeval tv2)
+{
+    long    sec;
+    long    msec;
+
+    sec = tv2.tv_sec - tv1.tv_sec;
+    msec = (sec * 1000 + tv2.tv_usec / 1000) - tv1.tv_usec / 1000;
+    return (msec);
+}
+
+long t_current(struct timeval tv_srt)
+{
+	long    		sec;
+    long    		msec;
+	struct timeval	tv2;
+
+    gettimeofday(&tv2, NULL);
+    sec = tv2.tv_sec - tv_srt.tv_sec;
+    msec = (sec * 1000 + tv2.tv_usec / 1000) - tv_srt.tv_usec / 1000;
+    return (msec);
 }

@@ -15,10 +15,10 @@ NAME = philo
 SRC = main.c\
 	  init_arg.c\
 	  init_arr.c\
-	  init_pth.c\
+	  init_sim.c\
 	  utils.c\
 	  action.c\
-	  killer.c
+	  monitor.c
 
 HEADER = ./
 

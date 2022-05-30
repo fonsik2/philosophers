@@ -11,24 +11,27 @@
 /* ************************************************************************** */
 # include "philo.h"
 
-void reset_arg(t_par *arg)
+int set_default(t_par *arg)
 {
-	arg->n_phs = 0;
-	arg->t_die = 0;
-	arg->t_eat = 0;
-	arg->t_slp = 0;
 	arg->id = 0;
-	arg->n_eat = 0;
+	arg->n_phs = 0; //for validation
+	arg->n_eat = -1;
 	arg->alive = 1;
-	arg->ok = 1;
+	return (0);
 }
-
+int	check(int a, int b, int c, int d)
+{
+	if (a < 0 || b < 0 || c < 0 || d < 0)
+		return (-1);
+	return (0);
+}
 t_par	pars_arg(int argc, char **argv)
 {
 	t_par arg;
 	int i;
+	int	f;
 
-	reset_arg(&arg);
+	set_default(&arg);
 	i = 0;
 	if (argc == 5 || argc == 6)
 	{
@@ -38,35 +41,48 @@ t_par	pars_arg(int argc, char **argv)
 		arg.t_slp = ft_atoi(*(argv + ++i));
 		if (argc == 6)
 			arg.n_eat = ft_atoi(*(argv + ++i));
+		f = check(arg.n_phs, arg.t_die, arg.t_eat, arg.t_slp);
 	}
 	else
-		ft_putstr("Error: n_phs t_die t_eat t_slp n_eat \n");
-	return(arg);
+		f = -1;
+	if (f == -1)
+	{
+		arg.n_phs = 0;
+		printf("Error: n_phs t_die t_eat t_slp n_eat \n");
+		return (arg);
+	}
+	return (arg);
 }
 
 t_par *set_arg(int argc, char **argv)
 {
 	t_par	*arg_set;
-	t_par	arg;
-	int		inx;
+	t_par	param;
+	int		idx;
+	int		f1;
+	int		f2;
 
-	inx = 0;
-	arg = pars_arg(argc, argv);
-	arg.fkl_ptr = frk_init(arg.n_phs);
-	arg.phs_ptr = phs_init(&arg);
-	arg_set = (t_par*)malloc(sizeof(t_par)*arg.n_phs);
+	param = pars_arg(argc, argv);
+	f1 = frk_init(&param);
+	f2 = phs_init(&param);
+	if (!param.n_phs && !f1 && !f2)
+		return (NULL);
+	arg_set = (t_par*)malloc(sizeof(t_par) * param.n_phs);
 	if (arg_set == 0)
 	{
 		printf("Error: memory fault\n");
-		free(arg.phs_ptr);
-		free(arg.fkl_ptr);
-		exit (-1);
+		free(param.phs_set);
+		free(param.fkl_set);
+		*(param.sim_on) = 0;
+		return (NULL);
 	}
-	while(inx < arg.n_phs)
+	*(param.sim_on) = 1;
+	idx = 0;
+	while(idx < param.n_phs)
 	{
-		arg.id++;
-		*(arg_set + inx) =  arg;
-		inx++;
+		param.id = param.id + 1;
+		*(arg_set + idx) =  param;
+		idx++;
 	}
 	return(arg_set);
 }
