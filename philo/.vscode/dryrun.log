@@ -1,18 +1,17 @@
-make re --dry-run --keep-going --print-directory
+make re --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/lily/philosophers/philo'
 rm -f main.o init_arg.o init_arr.o init_sim.o utils.o action.o monitor.o
-rm -f 
+rm -f action.d init_arg.d init_arr.d init_sim.d main.d monitor.d utils.d
 rm -f philo
  
 gcc -Wall -Wextra -Werror -g -c main.c -o main.o -I./ -MD
 gcc -Wall -Wextra -Werror -g -c init_arg.c -o init_arg.o -I./ -MD
+ 
 gcc -Wall -Wextra -Werror -g -c init_arr.c -o init_arr.o -I./ -MD
- 
 gcc -Wall -Wextra -Werror -g -c init_sim.c -o init_sim.o -I./ -MD
+ 
 gcc -Wall -Wextra -Werror -g -c utils.c -o utils.o -I./ -MD
- 
 gcc -Wall -Wextra -Werror -g -c action.c -o action.o -I./ -MD
- 
 gcc -Wall -Wextra -Werror -g -c monitor.c -o monitor.o -I./ -MD
 gcc main.o init_arg.o init_arr.o init_sim.o utils.o action.o monitor.o -o philo -pthread
 make: Leaving directory `/Users/lily/philosophers/philo'

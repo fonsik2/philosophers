@@ -6,66 +6,59 @@
 /*   By: smdyan <smdyan@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:25:24 by smdyan            #+#    #+#             */
-/*   Updated: 2022/05/22 20:25:30 by smdyan           ###   ########.fr       */
+/*   Updated: 2022/06/01 12:01:45 by smdyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	frk_init(t_par *arg)
+int	frk_init(t_par *a)
 {
-	pthread_mutex_t	*frk_set;
-    int             ok;
-    int             i;
+	pthread_mutex_t	*fset;
+	int				ok;
+	int				i;
 
-    frk_set = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (arg->n_phs + 2));
-    if (frk_set == 0)
-	{
-		printf("Error: Memory fault\n");
-		return (-1);
-	}
+	fset = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t) * (a->n_phs + 2));
+	if (fset == 0)
+		return (e_msg("Memory fault"));
 	i = 0;
-    while (i < arg->n_phs + 2)
+	while (i < a->n_phs + 2)
 	{
-		ok = pthread_mutex_init(frk_set + i, NULL);
+		ok = pthread_mutex_init(fset + i, NULL);
 		if (ok != 0)
 		{
-			printf("Error: Creating mutex\n");
-			free(frk_set);
-			return (-1);
+			free(fset);
+			return (e_msg("Creating mutex"));
 		}
 		i++;
 	}
-	arg->fkl_set = frk_set;
-	arg->a_lock = frk_set + arg->n_phs;
-	arg->p_lock = frk_set + arg->n_phs + 1;
-    return (0);
+	a->fkl_set = fset;
+	a->a_lock = fset + a->n_phs;
+	a->p_lck = fset + a->n_phs + 1;
+	return (0);
 }
 
 int	phs_init(t_par *arg)
 {
-    pthread_t	*phs_set;
+	pthread_t	*phs_set;
 	int			*sim_on;
 
-	sim_on = (int*)malloc(sizeof(int));
+	sim_on = (int *)malloc(sizeof (int));
 	if (!sim_on)
 	{
-		printf("Error: Memory fault\n");
 		free(arg->fkl_set);
-		return (-1);
+		return (e_msg("Memory fault"));
 	}
 	*sim_on = 0;
-	phs_set = (pthread_t *)malloc(sizeof(pthread_t) * arg->n_phs + 1); //n_phs + 1 => tmr_ptr
+	phs_set = (pthread_t *)malloc(sizeof (pthread_t) * arg->n_phs + 1);
 	if (phs_set == 0)
 	{
-		printf("Error: Memory fault\n");
 		free(sim_on);
 		free(arg->fkl_set);
-		return (-1);
+		return (e_msg("Memory fault"));
 	}
 	arg->phs_set = phs_set;
 	arg->monitor_p = phs_set + arg->n_phs;
 	arg->sim_on = sim_on;
-	return(0);
+	return (0);
 }
-
