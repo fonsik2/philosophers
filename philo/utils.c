@@ -6,20 +6,11 @@
 /*   By: smdyan <smdyan@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 13:00:02 by smdyan            #+#    #+#             */
-/*   Updated: 2022/05/31 17:07:57 by smdyan           ###   ########.fr       */
+/*   Updated: 2022/06/01 21:31:23 by smdyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_swap(int *a, int *b)
-{
-	int	c;
-
-	c = *b;
-	*b = *a;
-	*a = c;
-}
 
 int	ft_atoi(const char *str)
 {
@@ -79,5 +70,16 @@ void	ft_usleep(int us)
 	{
 		usleep(10);
 		gettimeofday(&t2, NULL);
+	}
+}
+
+void	choose_frk(t_par *cfg, int *idx1, int *idx2)
+{
+	*idx1 = cfg->id - 1;
+	*idx2 = cfg->id;
+	if (cfg->id == cfg->n_phs)
+	{
+		*idx2 = *idx1;
+		*idx1 = 0;
 	}
 }

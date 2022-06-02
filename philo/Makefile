@@ -26,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
@@ -36,7 +36,7 @@ all: $(NAME)
 include $(wildcard *.d)
 
 $(NAME): $(OBJ) Makefile
-	$(CC) $(OBJ) -o $(NAME) -pthread
+	$(CC) $(OBJ) -o $(NAME) -pthread -O1
 
 clean:
 	rm -f $(OBJ)

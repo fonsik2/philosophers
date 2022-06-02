@@ -48,20 +48,18 @@ void	feedup(t_par *arg_set)
 {
 	int		i;
 	int		n;
-	t_par	targ;
 
-	ft_usleep(900);
+	ft_usleep(500);
 	i = 0;
 	n = 0;
 	pthread_mutex_lock(arg_set->a_lock);
-	while (i < arg_set->n_phs)
+	while (i < arg_set->n_phs && *(arg_set->sim_on))
 	{
-		targ = arg_set[i];
-		n += targ.alive;
+		n += arg_set[i].alive;
 		i++;
 	}
 	if (n == 0)
-		*(targ.sim_on) = 0;
+		*(arg_set->sim_on) = 0;
 	pthread_mutex_unlock(arg_set->a_lock);
 }
 

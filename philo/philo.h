@@ -48,6 +48,7 @@ void			prnt_msg(const char *text, long t_v, int id,
 int				e_msg(char *str);
 void			*f_killer(void *arg);
 void			*f_action(void *arg);
+void			choose_frk(t_par *cfg, int *idx1, int *idx2);
 t_par			*set_arg(int argc, char **argv);
 int				frk_init(t_par *arg);
 int				phs_init(t_par *arg);

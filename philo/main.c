@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 	t_par	*arg_set;
 
 	arg_set = set_arg(argc, argv);
-	if (!arg_set || *(arg_set->sim_on) == 0)
+	if (!arg_set)
 		return (-1);
 	life_run(arg_set);
 	life_dwn(arg_set);

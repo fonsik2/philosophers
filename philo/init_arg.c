@@ -64,18 +64,17 @@ t_par	*set_arg(int argc, char **argv)
 	int		idx;
 
 	param = pars_arg(argc, argv);
-	if (!frk_init(&param) && !phs_init(&param) && !param.n_phs)
-		return (NULL);
-	arg_set = (t_par *)malloc(sizeof (t_par) * param.n_phs);
+	arg_set = (t_par *)malloc(sizeof (t_par) * (param.n_phs + 1));
 	if (arg_set == 0)
 	{
 		printf("Error: memory fault\n");
 		free(param.phs_set);
 		free(param.fkl_set);
-		*(param.sim_on) = 0;
 		return (NULL);
 	}
-	*(param.sim_on) = 1;
+	if (!frk_init(&param) && !phs_init(&param) && param.n_phs)
+		*(param.sim_on) = 1;
+	*arg_set = param;
 	idx = 0;
 	while (idx < param.n_phs)
 	{

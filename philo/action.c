@@ -6,7 +6,7 @@
 /*   By: smdyan <smdyan@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 01:20:53 by smdyan            #+#    #+#             */
-/*   Updated: 2022/05/31 15:27:20 by smdyan           ###   ########.fr       */
+/*   Updated: 2022/06/01 18:56:13 by smdyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	hld_frk(t_par *cfg)
 
 	if (*(cfg->sim_on) && cfg->alive)
 	{
-		idx1 = cfg->id - 1;
-		idx2 = cfg->id;
-		if (cfg->id == cfg->n_phs)
-		{
-			idx2 = 0;
-			ft_swap(&idx1, &idx2);
-		}
+		choose_frk(cfg, &idx1, &idx2);
 		pthread_mutex_lock(cfg->fkl_set + idx1);
 		prnt_msg("has taken a fork", t_curt(cfg->tv_srt), cfg->id, cfg->p_lck);
+		if (cfg->n_phs == 1)
+		{
+			pthread_mutex_unlock(cfg->fkl_set + idx1);
+			ft_usleep((cfg->t_die + 2) * 1000);
+			return ;
+		}
 		pthread_mutex_lock(cfg->fkl_set + idx2);
 		prnt_msg("has taken a fork", t_curt(cfg->tv_srt), cfg->id, cfg->p_lck);
 		act_eat(cfg);

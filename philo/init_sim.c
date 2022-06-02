@@ -23,6 +23,7 @@ int	life_run(t_par *arg_set)
 		ok = pthread_create(arg_set->phs_set + i, NULL, f_action, arg_set + i);
 		if (ok != 0)
 			return (e_msg("Creating pthread"));
+		ft_usleep(50);
 		i++;
 	}
 	ok = pthread_create(arg_set->monitor_p, NULL, f_killer, arg_set);
